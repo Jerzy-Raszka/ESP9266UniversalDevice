@@ -1,11 +1,11 @@
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include <Arduino.h>
 #include <Wire.h>
 
+#include "BoxBreathing.h"
 #include "CircleBreathing.h"
 #include "Config.h"
 #include "Display.h"
+
 
 #define BUZZER D5
 
@@ -26,4 +26,7 @@ void setup() {
   display.clearDisplay();
 }
 
-void loop() { circleBreathing(); }
+void loop() {
+  // circleBreathing();
+  boxBreathing();
+}

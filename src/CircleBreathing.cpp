@@ -1,21 +1,9 @@
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <Arduino.h>
 
 #include "CircleBreathing.h"
 #include "Config.h"
 #include "Display.h"
-
-void printText(const char *textToPrint) {
-  int16_t x1, y1;
-  uint16_t width, height;
-  display.setTextSize(1);
-  display.getTextBounds(textToPrint, 0, 0, &x1, &y1, &width, &height);
-  int16_t x = (SCREEN_WIDTH - width) / 2;
-  display.setTextColor(WHITE);
-  display.setCursor(x, 5);
-  display.println(textToPrint);
-}
+#include "RenderCenteredText.h"
 
 void circleBreathing() {
   unsigned long start = 0;
@@ -26,7 +14,7 @@ void circleBreathing() {
                      ((RADIUS * 2) + 2), ((RADIUS * 2) + 2), WHITE);
     display.fillCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), i,
                        WHITE);
-    printText("Breath in");
+    renderCenteredText("Breath in");
     display.display();
 
     start = millis();
@@ -36,7 +24,7 @@ void circleBreathing() {
   }
 
   display.clearDisplay();
-  printText("Hold");
+  renderCenteredText("Hold");
   display.drawRect(((SCREEN_WIDTH / 2) - RADIUS - 1), RADIUS - 1,
                    ((RADIUS * 2) + 2), ((RADIUS * 2) + 2), WHITE);
   display.fillCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), 20,
@@ -54,7 +42,7 @@ void circleBreathing() {
                      ((RADIUS * 2) + 2), ((RADIUS * 2) + 2), WHITE);
     display.fillCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), j,
                        WHITE);
-    printText("Breath out");
+    renderCenteredText("Breath out");
     display.display();
 
     start = millis();
