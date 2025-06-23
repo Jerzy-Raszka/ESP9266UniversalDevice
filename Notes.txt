@@ -1,0 +1,2 @@
+1. Height of yellow OLED space is 16px
+2. Pixels on OLED goes from top left and rise on right and to the bottom
