@@ -5,9 +5,7 @@
 #include "CircleBreathing.h"
 #include "Config.h"
 #include "Display.h"
-
-
-#define BUZZER D5
+#include "GymTimer.h"
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
@@ -28,5 +26,6 @@ void setup() {
 
 void loop() {
   // circleBreathing();
-  boxBreathing();
+  // boxBreathing();
+  gymTimer(1, 30);
 }

@@ -1,3 +1,4 @@
 #pragma once
 
-void renderCenteredText(const char *textToPrint);
+void renderCenteredText(const char *textToPrint, int textHeight = 5,
+                        int textSize = 1);

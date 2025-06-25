@@ -1,5 +1,3 @@
-#include <Adafruit_GFX.h>
-
 #include "CircleBreathing.h"
 #include "Config.h"
 #include "Display.h"

@@ -1,3 +1,4 @@
+#include "BoxBreathing.h"
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
