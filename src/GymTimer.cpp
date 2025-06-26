@@ -16,6 +16,14 @@ void gymTimer(int min, int sec) {
       } else {
         timeStr = String(i) + ":" + String(j);
       }
+      if (j < 5 && i == 0) {
+        digitalWrite(BUZZER, HIGH);
+        start = millis();
+        while (millis() - start < 250) {
+          yield();
+        }
+        digitalWrite(BUZZER, LOW);
+      }
       renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
       display.display();
       start = millis();
@@ -25,7 +33,6 @@ void gymTimer(int min, int sec) {
     }
     sec = 59;
   }
-
   digitalWrite(BUZZER, HIGH);
   start = millis();
   while (millis() - start < 1000) {

@@ -8,3 +8,7 @@
 #define RADIUS (((SCREEN_HEIGHT - (TEXT_HEIGHT * 2)) - 8) / 2)
 
 #define BUZZER D5
+#define RIGHT D6
+#define LEFT D7
+#define ACCEPT D3
+#define BACK D4
