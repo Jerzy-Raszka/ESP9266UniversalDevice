@@ -16,11 +16,9 @@ void setup() {
   pinMode(RIGHT, INPUT_PULLUP);
   pinMode(LEFT, INPUT_PULLUP);
   pinMode(ACCEPT, INPUT_PULLUP);
-  pinMode(BACK, INPUT_PULLUP);
   attachInterrupt(RIGHT, onRight, FALLING);
   attachInterrupt(LEFT, onLeft, FALLING);
   attachInterrupt(ACCEPT, onAccept, FALLING);
-  attachInterrupt(BACK, onBack, FALLING);
 
   Serial.begin(115200);
 
@@ -33,24 +31,7 @@ void setup() {
   display.clearDisplay();
 }
 
-void loop() {
-  // circleBreathing();
-  // boxBreathing();
-  // gymTimer(1, 30);
-  if (rightPressed) {
-    Serial.println("Right");
-    rightPressed = false;
-  }
-  if (leftPressed) {
-    Serial.println("Left");
-    leftPressed = false;
-  }
-  if (acceptPressed) {
-    Serial.println("Accept");
-    acceptPressed = false;
-  }
-  if (backPressed) {
-    Serial.println("Back");
-    backPressed = false;
-  }
-}
+// TODO: Main screen right/left -> accept for mode
+// TODO: Time select before Circle breathing with minutes
+// TODO: Minute select -> accept -> second select -> accept -> start
+void loop() { boxBreathing(); }
