@@ -7,9 +7,13 @@
 #include "Config.h"
 #include "Display.h"
 #include "GymTimer.h"
+#include "ShowBoxBreathing.h"
+#include "ShowCircleBreathing.h"
+#include "ShowGymTimer.h"
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
-
+int8_t task = 0;
+boolean taskChanged = true;
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(BUZZER, OUTPUT);
@@ -32,4 +36,58 @@ void setup() {
 }
 
 // TODO: Main screen right/left -> accept for mode
-void loop() { boxBreathing(); }
+void loop() {
+  while (!acceptPressed) {
+    if (rightPressed) {
+      taskChanged = true;
+      if (task == 2) {
+        task = 0;
+      } else {
+        task += 1;
+      }
+      rightPressed = false;
+    }
+
+    if (leftPressed) {
+      taskChanged = true;
+      if (task == 0) {
+        task = 2;
+      } else {
+        task -= 1;
+      }
+      leftPressed = false;
+    }
+
+    if (taskChanged) {
+      switch (task) {
+      case 0:
+        showGymTimer();
+        taskChanged = false;
+        break;
+      case 1:
+        showBoxBreathing();
+        taskChanged = false;
+        break;
+      case 2:
+        showCircleBreathing();
+        taskChanged = false;
+        break;
+      }
+    }
+    yield();
+  }
+
+  acceptPressed = false;
+
+  switch (task) {
+  case 0:
+    gymTimer(1, 30); // TODO: add time select for gym timer
+    break;
+  case 1:
+    boxBreathing();
+    break;
+  case 2:
+    circleBreathing();
+    break;
+  }
+}
