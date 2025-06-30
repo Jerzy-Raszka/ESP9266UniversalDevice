@@ -3,11 +3,12 @@
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
+#include "TimeSet.h"
 
 void boxBreathing() {
   unsigned long start = 0;
   unsigned long breathingStart = 0;
-  unsigned long breathingTime = 5 * 60;
+  unsigned long breathingTime = timeSet();
 
   int8_t x = ((SCREEN_WIDTH / 2) - RADIUS);
   int8_t xRect = ((SCREEN_WIDTH / 2) - RADIUS);
@@ -16,34 +17,6 @@ void boxBreathing() {
   u_int8_t squareSize = ((RADIUS * 2));
   int8_t min = 5;
   String timeStr = String(min) + "min";
-
-  while (!acceptPressed) {
-    display.clearDisplay();
-    renderCenteredText("Input time:");
-    timeStr = String(min) + " min";
-    renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
-    if (rightPressed) {
-      if (min == 60) {
-        min = 0;
-      } else {
-        min++;
-      }
-      rightPressed = false;
-    }
-    if (leftPressed) {
-      if (min == 0) {
-        min = 60;
-      } else {
-        min--;
-      }
-      leftPressed = false;
-    }
-    display.display();
-    yield();
-  }
-
-  acceptPressed = false;
-  breathingTime = min * 60 * 1000;
 
   while (millis() - breathingStart < breathingTime) {
     for (int i = 0; i < squareSize; i++) {

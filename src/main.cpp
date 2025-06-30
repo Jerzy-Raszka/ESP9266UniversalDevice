@@ -32,6 +32,4 @@ void setup() {
 }
 
 // TODO: Main screen right/left -> accept for mode
-// TODO: Time select before Circle breathing with minutes
-// TODO: Minute select -> accept -> second select -> accept -> start
 void loop() { boxBreathing(); }
