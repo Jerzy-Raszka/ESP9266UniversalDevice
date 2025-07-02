@@ -14,19 +14,11 @@ unsigned long timeSet() {
     timeStr = String(min) + " min";
     renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
     if (rightPressed) {
-      if (min == 60) {
-        min = 0;
-      } else {
-        min++;
-      }
+      min = (min + 1) % 61;
       rightPressed = false;
     }
     if (leftPressed) {
-      if (min == 0) {
-        min = 60;
-      } else {
-        min--;
-      }
+      min = (min == 0) ? 60 : min - 1;
       leftPressed = false;
     }
     display.display();

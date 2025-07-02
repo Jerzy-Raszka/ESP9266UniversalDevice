@@ -5,58 +5,49 @@
 #include "RenderCenteredText.h"
 #include "TimeSet.h"
 
-void circleBreathing() {
-  unsigned long start = 0;
-  unsigned long breathingStart = 0;
-  unsigned long breathingTime = timeSet();
+const unsigned long INHALE_STEP_MS = 200;
+const unsigned long HOLD_MS = 7000;
+const unsigned long EXHALE_STEP_MS = 400;
+const int CIRCLE_CENTER_X = SCREEN_WIDTH / 2;
+const int CIRCLE_CENTER_Y = SCREEN_HEIGHT - RADIUS - 4;
 
-  int8_t min = 5;
-  String timeStr = String(min) + "min";
+void drawBreathingCircle(int radius, const char *label) {
+  display.clearDisplay();
+  display.drawRect(CIRCLE_CENTER_X - RADIUS - 1, RADIUS - 1, (RADIUS * 2) + 2,
+                   (RADIUS * 2) + 2, WHITE);
+  display.fillCircle(CIRCLE_CENTER_X, CIRCLE_CENTER_Y, radius, WHITE);
+  renderCenteredText(label);
+  display.display();
+}
+
+void circleBreathing() {
+  unsigned long breathingStart = millis();
+  unsigned long breathingTime = timeSet();
 
   while (millis() - breathingStart < breathingTime) {
     for (int i = 0; i <= RADIUS; i++) {
-      display.clearDisplay();
-      display.drawRect(((SCREEN_WIDTH / 2) - RADIUS - 1), RADIUS - 1,
-                       ((RADIUS * 2) + 2), ((RADIUS * 2) + 2), WHITE);
-      display.fillCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), i,
-                         WHITE);
-      renderCenteredText("Breath in");
-      display.display();
-
-      start = millis();
-      while (millis() - start < 200) {
+      drawBreathingCircle(i, "Breath in");
+      unsigned long start = millis();
+      while (millis() - start < INHALE_STEP_MS) {
         yield();
       }
     }
 
-    display.clearDisplay();
-    renderCenteredText("Hold");
-    display.drawRect(((SCREEN_WIDTH / 2) - RADIUS - 1), RADIUS - 1,
-                     ((RADIUS * 2) + 2), ((RADIUS * 2) + 2), WHITE);
-    display.fillCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), 20,
-                       WHITE);
-    display.display();
-
-    start = millis();
-    while (millis() - start < 7000) {
+    drawBreathingCircle(RADIUS, "Hold");
+    unsigned long holdStart = millis();
+    while (millis() - holdStart < HOLD_MS) {
       yield();
     }
 
-    for (int j = RADIUS; j > 0; j--) {
-      display.clearDisplay();
-      display.drawRect(((SCREEN_WIDTH / 2) - RADIUS - 1), RADIUS - 1,
-                       ((RADIUS * 2) + 2), ((RADIUS * 2) + 2), WHITE);
-      display.fillCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), j,
-                         WHITE);
-      renderCenteredText("Breath out");
-      display.display();
-
-      start = millis();
-      while (millis() - start < 400) {
+    for (int i = RADIUS; i > 0; i--) {
+      drawBreathingCircle(i, "Breath out");
+      unsigned long start = millis();
+      while (millis() - start < EXHALE_STEP_MS) {
         yield();
       }
     }
   }
+
   display.clearDisplay();
   renderCenteredText("Finished!", MIDDLE_SCREEN, 2);
   display.display();

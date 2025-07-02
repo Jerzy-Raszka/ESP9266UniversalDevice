@@ -36,58 +36,49 @@ void setup() {
 }
 
 void loop() {
-  // while (!acceptPressed) {
-  //   if (rightPressed) {
-  //     taskChanged = true;
-  //     if (task == 2) {
-  //       task = 0;
-  //     } else {
-  //       task += 1;
-  //     }
-  //     rightPressed = false;
-  //   }
+  while (!acceptPressed) {
+    if (rightPressed) {
+      task = (task == 2) ? 0 : task + 1;
+      taskChanged = true;
+      rightPressed = false;
+    }
 
-  //   if (leftPressed) {
-  //     taskChanged = true;
-  //     if (task == 0) {
-  //       task = 2;
-  //     } else {
-  //       task -= 1;
-  //     }
-  //     leftPressed = false;
-  //   }
+    if (leftPressed) {
+      taskChanged = true;
+      task = (task == 0) ? 2 : task - 1;
+      leftPressed = false;
+    }
 
-  //   if (taskChanged) {
-  //     switch (task) {
-  //     case 0:
-  //       showGymTimer();
-  //       taskChanged = false;
-  //       break;
-  //     case 1:
-  //       showBoxBreathing();
-  //       taskChanged = false;
-  //       break;
-  //     case 2:
-  //       showCircleBreathing();
-  //       taskChanged = false;
-  //       break;
-  //     }
-  //   }
-  //   yield();
-  // }
+    if (taskChanged) {
+      switch (task) {
+      case 0:
+        showGymTimer();
+        taskChanged = false;
+        break;
+      case 1:
+        showBoxBreathing();
+        taskChanged = false;
+        break;
+      case 2:
+        showCircleBreathing();
+        taskChanged = false;
+        break;
+      }
+    }
+    yield();
+  }
 
-  // acceptPressed = false;
+  acceptPressed = false;
 
-  // switch (task) {
-  // case 0:
-  //   gymTimer();
-  //   break;
-  // case 1:
-  //   boxBreathing();
-  //   break;
-  // case 2:
-  //   circleBreathing();
-  //   break;
-  // }
-  gymTimer();
+  switch (task) {
+  case 0:
+    gymTimer();
+    break;
+  case 1:
+    boxBreathing();
+    break;
+  case 2:
+    circleBreathing();
+    break;
+  }
 }

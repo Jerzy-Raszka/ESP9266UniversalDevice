@@ -16,11 +16,8 @@ void gymTimer() {
     for (int j = sec; j >= 0; j--) {
       display.clearDisplay();
       renderCenteredText("Time left:");
-      if (j < 10) {
-        timeStr = String(i) + ":0" + String(j);
-      } else {
-        timeStr = String(i) + ":" + String(j);
-      }
+      timeStr = j < 10 ? (String(i) + ":0" + String(j))
+                       : (String(i) + ":" + String(j));
       if (j < 5 && i == 0) {
         digitalWrite(BUZZER, HIGH);
         start = millis();

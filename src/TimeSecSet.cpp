@@ -4,43 +4,41 @@
 #include "RenderCenteredText.h"
 #include "TimeMinSec.h"
 
+String formatTime(uint8_t min, uint8_t sec, bool blink, bool blinkSec) {
+  String minStr = (min < 10) ? " " + String(min) : String(min);
+  String secStr = (sec < 10) ? "0" + String(sec) : String(sec);
+
+  if (blink) {
+    if (blinkSec) {
+      secStr = "  ";
+    } else {
+      minStr = "  ";
+    }
+  }
+  return minStr + ":" + secStr;
+}
+
 timeMinSec timeSecSet() {
   bool blinkOn = false;
-  boolean setingSec = true;
-  boolean setingMin = false;
-  u_int8_t min = 1;
-  u_int8_t sec = 45;
+  bool setingSec = true;
+  bool setingMin = false;
+  uint8_t min = 1;
+  uint8_t sec = 45;
   timeMinSec setTime = {0, 0};
-  String timeStr = " " + String(min) + ":" + String(sec);
 
   while (setingSec) {
     display.clearDisplay();
     renderCenteredText("Input seconds");
     blinkOn = (millis() / 500) % 2 == 0;
-    if (blinkOn) {
-      if (sec < 10) {
-        timeStr = " " + String(min) + ":0" + String(sec);
-      } else {
-        timeStr = " " + String(min) + ":" + String(sec);
-      }
-    } else {
-      timeStr = " " + String(min) + ":  ";
-    }
+    String timeStr = formatTime(min, sec, blinkOn, true);
     renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
+
     if (rightPressed) {
-      if (sec + 1 == 60) {
-        sec = 0;
-      } else {
-        sec++;
-      }
+      sec = (sec + 1) % 61;
       rightPressed = false;
     }
     if (leftPressed) {
-      if (sec - 1 == 0) {
-        sec = 60;
-      } else {
-        sec--;
-      }
+      sec = (sec == 0) ? 60 : sec - 1;
       leftPressed = false;
     }
     if (acceptPressed) {
@@ -56,54 +54,18 @@ timeMinSec timeSecSet() {
     display.clearDisplay();
     renderCenteredText("Input minutes");
     blinkOn = (millis() / 500) % 2 == 0;
-    if (blinkOn) {
-      if (min < 10) {
-        if (sec < 10) {
-          timeStr = " " + String(min) + ":0" + String(sec);
-        } else {
-          timeStr = " " + String(min) + ":" + String(sec);
-        }
-      } else {
-        if (sec < 10) {
-          timeStr = String(min) + ":0" + String(sec);
-        } else {
-          timeStr = String(min) + ":" + String(sec);
-        }
-      }
-    } else {
-      if (min < 10) {
-        if (sec < 10) {
-          timeStr = "  :0" + String(sec);
-        } else {
-          timeStr = "  :" + String(sec);
-        }
-      } else {
-        if (sec < 10) {
-          timeStr = "  :0" + String(sec);
-        } else {
-          timeStr = "  :" + String(sec);
-        }
-      }
-    }
+    String timeStr = formatTime(min, sec, blinkOn, false);
     renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
+
     if (rightPressed) {
-      if (min == 60) {
-        min = 0;
-      } else {
-        min++;
-      }
+      min = (min + 1) % 61;
       rightPressed = false;
     }
     if (leftPressed) {
-      if (min == 0) {
-        min = 60;
-      } else {
-        min--;
-      }
+      min = (min == 0) ? 60 : min - 1;
       leftPressed = false;
     }
     if (acceptPressed) {
-      setingSec = false;
       setingMin = false;
       acceptPressed = false;
       setTime = {min, sec};
