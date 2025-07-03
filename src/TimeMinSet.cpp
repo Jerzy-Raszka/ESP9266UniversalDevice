@@ -3,7 +3,7 @@
 #include "Display.h"
 #include "RenderCenteredText.h"
 
-unsigned long timeSet() {
+unsigned long timeMinSet() {
   unsigned long breathingTime = 5 * 60;
   int8_t min = 5;
   String timeStr = String(min) + "min";

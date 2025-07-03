@@ -2,7 +2,7 @@
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
-#include "TimeMinSec.h"
+#include "TimeMinSecStruct.h"
 
 String formatTime(uint8_t min, uint8_t sec, bool blink, bool blinkSec) {
   String minStr = (min < 10) ? " " + String(min) : String(min);
@@ -18,15 +18,15 @@ String formatTime(uint8_t min, uint8_t sec, bool blink, bool blinkSec) {
   return minStr + ":" + secStr;
 }
 
-timeMinSec timeSecSet() {
+timeMinSecStruct timeMinSecSet() {
   bool blinkOn = false;
-  bool setingSec = true;
-  bool setingMin = false;
+  bool settingSec = true;
+  bool settingMin = false;
   uint8_t min = 1;
   uint8_t sec = 45;
-  timeMinSec setTime = {0, 0};
+  timeMinSecStruct setTime = {0, 0};
 
-  while (setingSec) {
+  while (settingSec) {
     display.clearDisplay();
     renderCenteredText("Input seconds");
     blinkOn = (millis() / 500) % 2 == 0;
@@ -42,15 +42,15 @@ timeMinSec timeSecSet() {
       leftPressed = false;
     }
     if (acceptPressed) {
-      setingSec = false;
-      setingMin = true;
+      settingSec = false;
+      settingMin = true;
       acceptPressed = false;
     }
     display.display();
     yield();
   }
 
-  while (setingMin) {
+  while (settingMin) {
     display.clearDisplay();
     renderCenteredText("Input minutes");
     blinkOn = (millis() / 500) % 2 == 0;
@@ -66,7 +66,7 @@ timeMinSec timeSecSet() {
       leftPressed = false;
     }
     if (acceptPressed) {
-      setingMin = false;
+      settingMin = false;
       acceptPressed = false;
       setTime = {min, sec};
       return setTime;

@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
-#include "TimeSet.h"
+#include "TimeMinSet.h"
 
 const unsigned long INHALE_STEP_MS = 200;
 const unsigned long HOLD_MS = 7000;
@@ -22,7 +22,7 @@ void drawBreathingCircle(int radius, const char *label) {
 
 void circleBreathing() {
   unsigned long breathingStart = millis();
-  unsigned long breathingTime = timeSet();
+  unsigned long breathingTime = timeMinSet();
 
   while (millis() - breathingStart < breathingTime) {
     for (int i = 0; i <= RADIUS; i++) {

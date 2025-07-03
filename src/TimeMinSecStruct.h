@@ -1,6 +1,6 @@
 #pragma once
 
-struct timeMinSec {
+struct timeMinSecStruct {
   int min;
   int sec;
 };

@@ -2,12 +2,12 @@
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
-#include "TimeMinSec.h"
-#include "TimeSecSet.h"
+#include "TimeMinSecSet.h"
+#include "TimeMinSecStruct.h"
 
 void gymTimer() {
   unsigned long start = 0;
-  timeMinSec timeSet = timeSecSet();
+  timeMinSecStruct timeSet = timeMinSecSet();
   u_int8_t min = timeSet.min;
   u_int8_t sec = timeSet.sec;
   String timeStr = String(min) + ":" + String(sec);

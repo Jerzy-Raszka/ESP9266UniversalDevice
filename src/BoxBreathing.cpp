@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
-#include "TimeSet.h"
+#include "TimMinSet.h"
 
 void drawBoxBreathingStep(int x, int y, const char *label) {
   display.clearDisplay();
@@ -17,7 +17,7 @@ void drawBoxBreathingStep(int x, int y, const char *label) {
 void boxBreathing() {
   unsigned long start = 0;
   unsigned long breathingStart = millis();
-  unsigned long breathingTime = timeSet();
+  unsigned long breathingTime = timeMinSet();
 
   int x = (SCREEN_WIDTH / 2) - RADIUS;
   int y = RADIUS;

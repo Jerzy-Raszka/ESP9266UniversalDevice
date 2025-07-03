@@ -35,6 +35,12 @@ void setup() {
   display.clearDisplay();
 }
 
+// TODO: 60 -> 1, 1->60 in breathings
+// TODO: 59 -> 0 in seconds in timer
+// TODO: ability to restart task after finishing them from setting timer again
+// with the same time as in previous task
+// TODO: move menu and task option to their own functions maybe?
+
 void loop() {
   while (!acceptPressed) {
     if (rightPressed) {
