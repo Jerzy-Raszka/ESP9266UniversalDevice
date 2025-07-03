@@ -5,7 +5,8 @@
 
 unsigned long timeMinSet() {
   unsigned long breathingTime = 5 * 60;
-  int8_t min = 5;
+  static int8_t lastMin = 5;
+  int8_t min = lastMin;
   String timeStr = String(min) + "min";
 
   while (!acceptPressed) {
@@ -14,11 +15,11 @@ unsigned long timeMinSet() {
     timeStr = String(min) + " min";
     renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
     if (rightPressed) {
-      min = (min + 1) % 61;
+      min = (min == 60) ? 1 : min + 1;
       rightPressed = false;
     }
     if (leftPressed) {
-      min = (min == 0) ? 60 : min - 1;
+      min = (min == 1) ? 60 : min - 1;
       leftPressed = false;
     }
     display.display();
@@ -26,6 +27,7 @@ unsigned long timeMinSet() {
   }
 
   acceptPressed = false;
+  lastMin = min;
   breathingTime = min * 60 * 1000;
   return breathingTime;
 }

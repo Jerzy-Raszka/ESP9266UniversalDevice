@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
-#include "TimMinSet.h"
+#include "TimeMinSet.h"
 
 void drawBoxBreathingStep(int x, int y, const char *label) {
   display.clearDisplay();
@@ -63,6 +63,12 @@ void boxBreathing() {
     yield();
   }
   display.clearDisplay();
-  renderCenteredText("Finished!", MIDDLE_SCREEN, 2);
+  renderCenteredText("Finished!");
+  renderCenteredText("Press accept to restart task", MIDDLE_SCREEN);
   display.display();
+
+  while (acceptPressed) {
+    boxBreathing();
+    acceptPressed = false;
+  }
 }

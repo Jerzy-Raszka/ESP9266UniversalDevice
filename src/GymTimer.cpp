@@ -1,9 +1,11 @@
 #include "GymTimer.h"
+#include "Buttons.h"
 #include "Config.h"
 #include "Display.h"
 #include "RenderCenteredText.h"
 #include "TimeMinSecSet.h"
 #include "TimeMinSecStruct.h"
+
 
 void gymTimer() {
   unsigned long start = 0;
@@ -41,4 +43,13 @@ void gymTimer() {
     yield();
   }
   digitalWrite(BUZZER, LOW);
+  display.clearDisplay();
+  renderCenteredText("Finished!");
+  renderCenteredText("Press accept to restart task", MIDDLE_SCREEN);
+  display.display();
+
+  while (acceptPressed) {
+    gymTimer();
+    acceptPressed = false;
+  }
 }

@@ -49,6 +49,12 @@ void circleBreathing() {
   }
 
   display.clearDisplay();
-  renderCenteredText("Finished!", MIDDLE_SCREEN, 2);
+  renderCenteredText("Finished!");
+  renderCenteredText("Press accept to restart task", MIDDLE_SCREEN);
   display.display();
+
+  while (acceptPressed) {
+    circleBreathing();
+    acceptPressed = false;
+  }
 }

@@ -22,8 +22,8 @@ timeMinSecStruct timeMinSecSet() {
   bool blinkOn = false;
   bool settingSec = true;
   bool settingMin = false;
-  uint8_t min = 1;
-  uint8_t sec = 45;
+  static uint8_t min = 1;
+  static uint8_t sec = 45;
   timeMinSecStruct setTime = {0, 0};
 
   while (settingSec) {
@@ -34,11 +34,11 @@ timeMinSecStruct timeMinSecSet() {
     renderCenteredText(timeStr.c_str(), MIDDLE_SCREEN, 2);
 
     if (rightPressed) {
-      sec = (sec + 1) % 61;
+      sec = (sec == 59) ? 0 : sec + 1;
       rightPressed = false;
     }
     if (leftPressed) {
-      sec = (sec == 0) ? 60 : sec - 1;
+      sec = (sec == 0) ? 59 : sec - 1;
       leftPressed = false;
     }
     if (acceptPressed) {
