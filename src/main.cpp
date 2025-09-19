@@ -20,6 +20,8 @@ void setup() {
   pinMode(RIGHT, INPUT_PULLUP);
   pinMode(LEFT, INPUT_PULLUP);
   pinMode(ACCEPT, INPUT_PULLUP);
+  pinMode(BACK, INPUT);
+  attachInterrupt(BACK, onBack, FALLING);
   attachInterrupt(RIGHT, onRight, FALLING);
   attachInterrupt(LEFT, onLeft, FALLING);
   attachInterrupt(ACCEPT, onAccept, FALLING);
@@ -53,17 +55,15 @@ void loop() {
       switch (task) {
       case 0:
         showGymTimer();
-        taskChanged = false;
         break;
       case 1:
         showBoxBreathing();
-        taskChanged = false;
         break;
       case 2:
         showCircleBreathing();
-        taskChanged = false;
         break;
       }
+      taskChanged = false;
     }
     yield();
   }
@@ -81,4 +81,5 @@ void loop() {
     circleBreathing();
     break;
   }
+  taskChanged = true;
 }

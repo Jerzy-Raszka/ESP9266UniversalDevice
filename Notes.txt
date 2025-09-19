@@ -1,2 +1,17 @@
 1. Height of yellow OLED space is 16px
 2. Pixels on OLED goes from top left and rise on right and to the bottom
+
+TODO:
+-Charge level shown in top right corner
+
+Possibile:
+-Wifi Connection
+-Menu with tasks/settings/todo
+-In task:
+    -another menu with all task like breathing and timer
+-In settings:
+    - option to connect to wifi: device shows ip -> type in web to choose and configure
+    - status: shows current ip, if connected to wifi and date if available
+-In todo(available only if wifi on):
+    -predefined task to do, you can use button to navigate and accept to mark task as done 
+    -later option to add task via webserver set up on esp32

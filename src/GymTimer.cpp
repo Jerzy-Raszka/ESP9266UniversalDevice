@@ -6,7 +6,6 @@
 #include "TimeMinSecSet.h"
 #include "TimeMinSecStruct.h"
 
-
 void gymTimer() {
   unsigned long start = 0;
   timeMinSecStruct timeSet = timeMinSecSet();
@@ -16,6 +15,9 @@ void gymTimer() {
 
   for (int i = min; i >= 0; i--) {
     for (int j = sec; j >= 0; j--) {
+      if (checkBackPressed()) {
+        return;
+      }
       display.clearDisplay();
       renderCenteredText("Time left:");
       timeStr = j < 10 ? (String(i) + ":0" + String(j))
@@ -49,6 +51,11 @@ void gymTimer() {
   display.display();
 
   while (acceptPressed) {
+    if (backPressed) {
+      acceptPressed = false;
+      backPressed = false;
+      return;
+    }
     gymTimer();
     acceptPressed = false;
   }

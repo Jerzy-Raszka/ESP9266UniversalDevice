@@ -15,9 +15,10 @@ void drawBoxBreathingStep(int x, int y, const char *label) {
 }
 
 void boxBreathing() {
+  static int8_t lastBoxMin = 5;
   unsigned long start = 0;
   unsigned long breathingStart = millis();
-  unsigned long breathingTime = timeMinSet();
+  unsigned long breathingTime = timeMinSet(lastBoxMin);
 
   int x = (SCREEN_WIDTH / 2) - RADIUS;
   int y = RADIUS;
@@ -25,36 +26,68 @@ void boxBreathing() {
 
   while (millis() - breathingStart < breathingTime) {
     for (int i = 0; i < squareSize; i++) {
+      if (checkBackPressed()) {
+        return;
+      }
       drawBoxBreathingStep(x + i, y, "Breath in");
       start = millis();
       while (millis() - start < 100) {
+        if (backPressed) {
+          acceptPressed = false;
+          backPressed = false;
+          return;
+        }
         yield();
       }
     }
     x += squareSize - 1;
 
     for (int i = 0; i < squareSize; i++) {
+      if (checkBackPressed()) {
+        return;
+      }
       drawBoxBreathingStep(x, y + i, "Hold");
       start = millis();
       while (millis() - start < 100) {
+        if (backPressed) {
+          acceptPressed = false;
+          backPressed = false;
+          return;
+        }
         yield();
       }
     }
     y += squareSize - 1;
 
     for (int i = 0; i < squareSize; i++) {
+      if (checkBackPressed()) {
+        return;
+      }
       drawBoxBreathingStep(x - i, y, "Breath out");
       start = millis();
       while (millis() - start < 100) {
+        if (backPressed) {
+          acceptPressed = false;
+          backPressed = false;
+          return;
+        }
         yield();
       }
     }
     x -= squareSize - 1;
 
     for (int i = 0; i < squareSize; i++) {
+      if (checkBackPressed()) {
+        return;
+      }
       drawBoxBreathingStep(x, y - i, "Hold");
       start = millis();
       while (millis() - start < 100) {
+        if (backPressed) {
+          acceptPressed = false;
+          backPressed = false;
+          return;
+        }
         yield();
       }
     }
@@ -68,6 +101,11 @@ void boxBreathing() {
   display.display();
 
   while (acceptPressed) {
+    if (backPressed) {
+      acceptPressed = false;
+      backPressed = false;
+      return;
+    }
     boxBreathing();
     acceptPressed = false;
   }

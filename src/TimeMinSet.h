@@ -1,3 +1,3 @@
 #pragma once
 
-unsigned long timeMinSet();
+unsigned long timeMinSet(int8_t &lastMin);

@@ -21,14 +21,23 @@ void drawBreathingCircle(int radius, const char *label) {
 }
 
 void circleBreathing() {
+  static int8_t lastCircleMin = 5;
   unsigned long breathingStart = millis();
-  unsigned long breathingTime = timeMinSet();
+  unsigned long breathingTime = timeMinSet(lastCircleMin);
 
   while (millis() - breathingStart < breathingTime) {
     for (int i = 0; i <= RADIUS; i++) {
+      if (checkBackPressed()) {
+        return;
+      }
       drawBreathingCircle(i, "Breath in");
       unsigned long start = millis();
       while (millis() - start < INHALE_STEP_MS) {
+        if (backPressed) {
+          acceptPressed = false;
+          backPressed = false;
+          return;
+        }
         yield();
       }
     }
@@ -36,13 +45,24 @@ void circleBreathing() {
     drawBreathingCircle(RADIUS, "Hold");
     unsigned long holdStart = millis();
     while (millis() - holdStart < HOLD_MS) {
+      if (checkBackPressed()) {
+        return;
+      }
       yield();
     }
 
     for (int i = RADIUS; i > 0; i--) {
+      if (checkBackPressed()) {
+        return;
+      }
       drawBreathingCircle(i, "Breath out");
       unsigned long start = millis();
       while (millis() - start < EXHALE_STEP_MS) {
+        if (backPressed) {
+          acceptPressed = false;
+          backPressed = false;
+          return;
+        }
         yield();
       }
     }
@@ -54,6 +74,11 @@ void circleBreathing() {
   display.display();
 
   while (acceptPressed) {
+    if (backPressed) {
+      acceptPressed = false;
+      backPressed = false;
+      return;
+    }
     circleBreathing();
     acceptPressed = false;
   }
