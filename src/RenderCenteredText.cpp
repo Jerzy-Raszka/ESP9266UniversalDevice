@@ -7,7 +7,7 @@ void renderCenteredText(const char *textToPrint, int textHeight, int textSize) {
   display.setTextSize(textSize);
   display.getTextBounds(textToPrint, 0, 0, &x1, &y1, &width, &height);
   int16_t x = (SCREEN_WIDTH - width) / 2;
-  display.setTextColor(WHITE);
+  display.setTextColor(SH110X_WHITE);
   display.setCursor(x, textHeight);
   display.println(textToPrint);
 }

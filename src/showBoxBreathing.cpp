@@ -94,7 +94,7 @@ static const uint8_t image_data_BoxBreathing[1024] = {
 void showBoxBreathing() {
   display.clearDisplay();
   display.drawBitmap(0, 0, image_data_BoxBreathing, SCREEN_WIDTH, SCREEN_HEIGHT,
-                     BLACK, WHITE);
+                     SH110X_BLACK, SH110X_WHITE);
   renderCenteredText("Box Breathing");
   display.display();
 }

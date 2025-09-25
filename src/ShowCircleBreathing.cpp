@@ -94,7 +94,7 @@ static const uint8_t image_data_CircleBreathing[1024] = {
 void showCircleBreathing() {
   display.clearDisplay();
   display.drawBitmap(0, 0, image_data_CircleBreathing, SCREEN_WIDTH,
-                     SCREEN_HEIGHT, BLACK, WHITE);
+                     SCREEN_HEIGHT, SH110X_BLACK, SH110X_WHITE);
   renderCenteredText("Circle Breathing");
   display.display();
 }

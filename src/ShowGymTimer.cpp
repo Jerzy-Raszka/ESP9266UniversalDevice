@@ -7,11 +7,12 @@ void showGymTimer() {
   display.clearDisplay();
   renderCenteredText("Timer");
   display.drawCircle((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4), RADIUS,
-                     WHITE);
+                     SH110X_WHITE);
   display.drawLine((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4),
                    ((SCREEN_WIDTH / 2) + RADIUS - 4),
-                   (SCREEN_HEIGHT - RADIUS - 4), WHITE);
+                   (SCREEN_HEIGHT - RADIUS - 4), SH110X_WHITE);
   display.drawLine((SCREEN_WIDTH / 2), (SCREEN_HEIGHT - RADIUS - 4),
-                   (SCREEN_WIDTH / 2), (SCREEN_HEIGHT - (2 * RADIUS)), WHITE);
+                   (SCREEN_WIDTH / 2), (SCREEN_HEIGHT - (2 * RADIUS)),
+                   SH110X_WHITE);
   display.display();
 }

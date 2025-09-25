@@ -8,8 +8,8 @@
 void drawBoxBreathingStep(int x, int y, const char *label) {
   display.clearDisplay();
   display.drawRect((SCREEN_WIDTH / 2) - RADIUS, RADIUS, RADIUS * 2, RADIUS * 2,
-                   WHITE);
-  display.fillCircle(x, y, 3, WHITE);
+                   SH110X_WHITE);
+  display.fillCircle(x, y, 3, SH110X_WHITE);
   renderCenteredText(label);
   display.display();
 }

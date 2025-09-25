@@ -1,4 +1,4 @@
 #pragma once
 
-#include <Adafruit_SSD1306.h>
-extern Adafruit_SSD1306 display;
+#include <Adafruit_SH110X.h>
+extern Adafruit_SH1106G display;

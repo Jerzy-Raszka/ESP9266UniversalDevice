@@ -11,7 +11,8 @@
 #include "ShowCircleBreathing.h"
 #include "ShowGymTimer.h"
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+Adafruit_SH1106G display =
+    Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 int8_t task = 0;
 boolean taskChanged = true;
 void setup() {
@@ -28,7 +29,7 @@ void setup() {
 
   Serial.begin(115200);
 
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+  if (!display.begin(0x3C, true)) {
     Serial.println(F("SSD1306 allocation failed"));
     for (;;) {
     }

@@ -5,6 +5,7 @@ TODO:
 -Charge level shown in top right corner
 
 Possibile:
+-Holding button to change time not only clicking
 -Wifi Connection
 -Menu with tasks/settings/todo
 -In task:

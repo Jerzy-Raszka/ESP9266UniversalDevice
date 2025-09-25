@@ -14,8 +14,8 @@ const int CIRCLE_CENTER_Y = SCREEN_HEIGHT - RADIUS - 4;
 void drawBreathingCircle(int radius, const char *label) {
   display.clearDisplay();
   display.drawRect(CIRCLE_CENTER_X - RADIUS - 1, RADIUS - 1, (RADIUS * 2) + 2,
-                   (RADIUS * 2) + 2, WHITE);
-  display.fillCircle(CIRCLE_CENTER_X, CIRCLE_CENTER_Y, radius, WHITE);
+                   (RADIUS * 2) + 2, SH110X_WHITE);
+  display.fillCircle(CIRCLE_CENTER_X, CIRCLE_CENTER_Y, radius, SH110X_WHITE);
   renderCenteredText(label);
   display.display();
 }
